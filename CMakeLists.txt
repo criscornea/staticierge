@@ -6,18 +6,62 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(FetchContent)
+set(FETCHCONTENT_QUIET FALSE)
 
+# Toml++
 FetchContent_Declare(
     tomlplusplus
     GIT_REPOSITORY https://github.com/marzer/tomlplusplus.git
     GIT_TAG v3.4.0
+    GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(tomlplusplus)
 
+# Catch2
+FetchContent_Declare(
+    Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG v3.15.3
+    GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(Catch2)
+
+# Compiler warnings
+add_library(project_warnings INTERFACE)
+target_compile_options(project_warnings INTERFACE
+    -Wall
+    -Wextra
+)
+
+# Sanitizer
+option(ENABLE_SANITIZERS "Enable AddressSanitizer + UndefinedBehaviorSanitizer" OFF)
+
+add_library(project_sanitizers INTERFACE)
+if(ENABLE_SANITIZERS)
+    target_compile_options(project_sanitizers INTERFACE
+        -fsanitize=address,undefined
+        -fno-omit-frame-pointer
+    )
+    target_link_options(project_sanitizers INTERFACE
+        -fsanitize=address,undefined
+    )
+endif()
+
+# Tests
+enable_testing()
+include(CTest)
+
+# Executable
+add_subdirectory(
+    tests/
+)
 add_executable(staticierge
     src/main.cpp
-    src/files.cpp
 )
 
 target_include_directories(staticierge PRIVATE src)
-target_link_libraries(staticierge PRIVATE tomlplusplus::tomlplusplus)
+target_link_libraries(staticierge PRIVATE 
+    tomlplusplus::tomlplusplus
+    project_warnings
+    project_sanitizers
+)
