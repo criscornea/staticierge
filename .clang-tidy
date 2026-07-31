@@ -1,0 +1,40 @@
+Checks: >
+ -*,
+  bugprone-*,
+  performance-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -readability-magic-numbers,
+  -readability-avoid-const-params-in-decls,
+  -readability-function-cognitive-complexity,
+  -readability-uppercase-literal-suffix,
+  -readability-identifier-length,
+  -readability-braces-around-statements,
+  -readability-implicit-bool-conversion,
+  -modernize-*,
+  -cppcoreguidelines-*,
+  -google-*,
+  -fuchsia-*,
+  -hicpp-*,
+  -llvm-*,
+  -misc-non-private-member-variables-in-classes,
+  -readability-named-parameter,
+  -readability-function-size,                   # "Function too long"
+  -readability-else-after-return,               # "Unnecessary else after return"
+  -readability-implicit-bool-conversion,        # "Don't use if (ptr)"
+  -readability-magic-numbers,                   # "Don't use literal numbers"
+  -readability-avoid-const-params-in-decls,     # "Don't put const on parameters"
+  -readability-isolate-declaration,             # "Multiple declarations in single statement"
+  -cppcoreguidelines-init-variables
+
+CheckOptions:
+  - key: readability-identifier-naming.VariableCase
+    value: snake_case
+  - key: readability-identifier-naming.FunctionCase  
+    value: snake_case
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase

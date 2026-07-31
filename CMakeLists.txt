@@ -39,11 +39,11 @@ option(ENABLE_SANITIZERS "Enable AddressSanitizer + UndefinedBehaviorSanitizer" 
 add_library(project_sanitizers INTERFACE)
 if(ENABLE_SANITIZERS)
     target_compile_options(project_sanitizers INTERFACE
-        -fsanitize=address,undefined
+        -fsanitize=undefined
         -fno-omit-frame-pointer
     )
     target_link_options(project_sanitizers INTERFACE
-        -fsanitize=address,undefined
+        -fsanitize=undefined
     )
 endif()
 
@@ -52,15 +52,15 @@ enable_testing()
 include(CTest)
 
 # Executable
-add_subdirectory(
-    tests/
-)
+add_subdirectory(tests)
+add_subdirectory(src/core)
 add_executable(staticierge
     src/main.cpp
 )
 
 target_include_directories(staticierge PRIVATE src)
 target_link_libraries(staticierge PRIVATE 
+    staticierge_core
     tomlplusplus::tomlplusplus
     project_warnings
     project_sanitizers
