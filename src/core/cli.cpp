@@ -3,12 +3,12 @@
 #include "settings.hpp"
 
 #include <cstdio>
-#include <map>
 #include <string_view>
+#include <unordered_map>
 
 namespace cli {
-std::map<std::string_view, Command> command_map{{"build", Command::BUILD},
-                                                {"--version", Command::VERSION}};
+std::unordered_map<std::string_view, Command> command_map{{"build", Command::BUILD},
+                                                          {"--version", Command::VERSION}};
 }
 
 namespace {

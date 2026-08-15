@@ -16,4 +16,7 @@ run:
 	cd build && ./staticierge
 
 tests: dev
-	ctest --test-dir build
+	ctest --test-dir build --output-on-failure
+
+tests_failed: dev
+	ctest --test-dir build --rerun-failed --output-on-failure

@@ -47,6 +47,7 @@ std::vector<fs::path> filesystem::find_markdown_files(fs::path root)
         // TODO: what to do with the error?
     }
 
+    // Keep the sequence deterministic
     std::sort(files.begin(), files.end());
 
     return files;

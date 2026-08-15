@@ -12,6 +12,8 @@ struct Source
 {
     std::string folder;
     SourceType type;
+
+    bool operator==(const Source &T) const { return folder == T.folder && type == T.type; }
 };
 
 namespace settings {

@@ -61,7 +61,6 @@ add_executable(staticierge
 target_include_directories(staticierge PRIVATE src)
 target_link_libraries(staticierge PRIVATE 
     staticierge_core
-    tomlplusplus::tomlplusplus
     project_warnings
     project_sanitizers
 )
