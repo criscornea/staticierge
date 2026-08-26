@@ -2,6 +2,8 @@ add_executable(staticierge_tests
     core/cli.cpp
     core/filesystem.cpp
     core/settings.cpp
+    core/reader.cpp
+    core/renderer.cpp
 )
 
 # update list because of FetchContent

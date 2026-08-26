@@ -2,6 +2,8 @@ add_library(staticierge_core
     cli.cpp
     filesystem.cpp
     settings.cpp
+    renderer.cpp
+    reader.cpp
 )
 
 target_compile_definitions(staticierge_core PRIVATE

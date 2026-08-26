@@ -1,10 +1,10 @@
-#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <unordered_map>
+
 #include <toml++/impl/parse_error.hpp>
 #include <toml++/toml.hpp>
-#include <unordered_map>
 
 #include "settings.hpp"
 
@@ -20,6 +20,11 @@ std::unordered_map<std::string_view, SourceType> source_types = {
 toml::parse_result settings::parse_file(std::string_view file_path)
 {
     return toml::parse_file(file_path);
+}
+
+toml::parse_result settings::parse_content(std::string_view content)
+{
+    return toml::parse(content);
 }
 
 std::vector<Source> settings::find_sources(toml::table &config)
