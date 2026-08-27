@@ -5,10 +5,13 @@
 #include "settings.hpp"
 
 #include <cstdio>
+#include <filesystem>
 #include <iostream>
 #include <string_view>
 #include <unordered_map>
 #include <vector>
+
+namespace fs = std::filesystem;
 
 namespace cli {
 std::unordered_map<std::string_view, Command> command_map{
@@ -16,7 +19,7 @@ std::unordered_map<std::string_view, Command> command_map{
 }
 
 namespace {
-void build(std::filesystem::path current_dir)
+void build(fs::path current_dir)
 {
     std::cout << "Loading settings.toml" << "\n";
 
@@ -28,11 +31,18 @@ void build(std::filesystem::path current_dir)
     }
     auto sources = settings::find_sources(config);
 
+    fs::path asset_folder;
+
     std::cout << "Loading markdown files" << "\n";
     for (const auto &source : sources) {
         auto folder = filesystem::find_folder(source.folder);
         if (!folder) {
-            // TODO: error here
+            // TODO: log warning here
+            continue;
+        }
+
+        if (source.type == SourceType::ASSET) {
+            asset_folder = source.folder;
             continue;
         }
 
@@ -58,11 +68,18 @@ void build(std::filesystem::path current_dir)
             }
         }
     }
+
+    if (!asset_folder.empty()) {
+        std::cout << "Moving assets" << "\n";
+
+        auto asset_out = fs::path("output") / asset_folder.filename();
+        fs::create_directories(asset_out);
+        fs::copy(asset_folder, asset_out, fs::copy_options::recursive);
+    }
 }
 } // namespace
 
-bool cli::execute_command(std::string_view command_name,
-                          std::filesystem::path current_dir)
+bool cli::execute_command(std::string_view command_name, fs::path current_dir)
 {
     if (auto command = command_map.find(command_name);
         command != command_map.end()) {

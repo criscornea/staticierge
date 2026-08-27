@@ -1,6 +1,6 @@
-#include <algorithm>
 #include <catch2/catch_test_macros.hpp>
 
+#include <algorithm>
 #include <filesystem>
 #include <fstream>
 #include <vector>
@@ -12,14 +12,23 @@ namespace fs = std::filesystem;
 class TempDir
 {
   public:
-    TempDir(fs::path root) : root_(std::move(root)) { fs::create_directories(root_); }
+    TempDir(fs::path root) : root_(std::move(root))
+    {
+        fs::create_directories(root_);
+    }
     ~TempDir() { fs::remove_all(root_); }
 
     auto path() const { return root_; }
 
-    void create_subdir(const fs::path &relative) { fs::create_directories(root_ / relative); }
+    void create_subdir(const fs::path &relative)
+    {
+        fs::create_directories(root_ / relative);
+    }
 
-    void create_file(const fs::path &relative) { std::ofstream(root_ / relative); }
+    void create_file(const fs::path &relative)
+    {
+        std::ofstream(root_ / relative);
+    }
 
   private:
     fs::path root_;

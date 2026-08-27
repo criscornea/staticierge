@@ -23,7 +23,8 @@ std::optional<fs::path> filesystem::find_folder(const std::string_view path)
     return folder;
 }
 
-std::optional<std::string> filesystem::read_file(const std::filesystem::path &filepath)
+std::optional<std::string>
+filesystem::read_file(const std::filesystem::path &filepath)
 {
     std::ifstream file(filepath);
     if (!file) {
@@ -70,7 +71,8 @@ std::vector<fs::path> filesystem::find_markdown_files(const fs::path &root)
     return files;
 }
 
-bool filesystem::save_file(const fs::path &filepath, const std::string_view content)
+bool filesystem::save_file(const fs::path &filepath,
+                           const std::string_view content)
 {
     std::ofstream file(filepath.string());
 

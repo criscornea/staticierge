@@ -1,8 +1,9 @@
-#include "settings.hpp"
 #include <catch2/catch_test_macros.hpp>
 #include <filesystem>
 #include <fstream>
 #include <string_view>
+
+#include "settings.hpp"
 
 class TempSettingsFile
 {

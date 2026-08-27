@@ -35,7 +35,6 @@ std::vector<Source> settings::find_sources(toml::table &config)
     }
 
     std::vector<Source> sources;
-    // for (const auto &folder : folders.as_array()) {
     for (auto &&folder : *folders.as_array()) {
         auto *table = folder.as_table();
         if (!table) {

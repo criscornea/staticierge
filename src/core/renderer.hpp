@@ -15,7 +15,6 @@ struct OutputFile
 
 namespace content::renderer {
 
-std::vector<OutputFile> html(const std::vector<SourceFile> &pages, SourceType source_type);
-
-std::filesystem::path create_dirs(const SourceFile &page, SourceType source_type);
+std::vector<OutputFile> html(const std::vector<SourceFile> &pages,
+                             SourceType source_type);
 } // namespace content::renderer
