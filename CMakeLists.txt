@@ -54,6 +54,7 @@ include(CTest)
 # Executable
 add_subdirectory(tests)
 add_subdirectory(src/core)
+add_subdirectory(src/md)
 add_executable(staticierge
     src/main.cpp
 )
@@ -61,6 +62,7 @@ add_executable(staticierge
 target_include_directories(staticierge PRIVATE src)
 target_link_libraries(staticierge PRIVATE 
     staticierge_core
+    staticierge_md
     project_warnings
     project_sanitizers
 )
