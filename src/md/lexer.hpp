@@ -3,10 +3,10 @@
 #include <cstdint>
 #include <string>
 #include <string_view>
-#include <utility>
 #include <vector>
 
 namespace md::lexer {
+
 enum class TokenType : std::uint8_t {
     HASHTAG,        // #
     STAR,           // *

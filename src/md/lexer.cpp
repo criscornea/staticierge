@@ -1,8 +1,6 @@
 #include "lexer.hpp"
 
 #include <cstddef>
-#include <iterator>
-#include <sstream>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -23,6 +21,7 @@ std::unordered_map<char, md::lexer::TokenType> token_types{
 std::unordered_map<char, md::lexer::TokenType> whitespaced_tokens{
     {'#', md::lexer::TokenType::HASHTAG},
     {'>', md::lexer::TokenType::CHEVRON},
+    {'-', md::lexer::TokenType::MINUS},
 };
 
 bool is_token_valid(const char &token, const std::string_view input,
@@ -35,7 +34,8 @@ bool is_token_valid(const char &token, const std::string_view input,
         return true;
     }
 
-    return input_pos + 1 < input.size() && input[input_pos + 1] == ' ';
+    return input_pos + 1 < input.size() &&
+           (input[input_pos + 1] == ' ' || input[input_pos + 1] == token);
 }
 } // namespace
 
@@ -58,6 +58,19 @@ std::vector<lexer::Token> lexer::tokenize(std::string_view input)
         });
     };
 
+    // counters helper
+    auto update_counts = [](char token, std::size_t &line, std::size_t &column,
+                            unsigned long &input_pos) {
+        if (token == '\n') {
+            column = 1;
+            line++;
+            input_pos++;
+        } else {
+            column++;
+            input_pos++;
+        }
+    };
+
     // start tokenization
     std::string buffer;
     std::size_t buffer_line = 1;
@@ -66,6 +79,7 @@ std::vector<lexer::Token> lexer::tokenize(std::string_view input)
     for (const char &c : input) {
         // continue if it is a whitespace after a token
         if (c == ' ' && buffer.empty()) {
+            update_counts(c, line, column, input_pos);
             continue;
         }
 
@@ -92,14 +106,7 @@ std::vector<lexer::Token> lexer::tokenize(std::string_view input)
             buffer += c;
         }
 
-        // update counters
-        if (c == '\n') {
-            line++;
-            column = 1;
-        } else {
-            column++;
-            input_pos++;
-        }
+        update_counts(c, line, column, input_pos);
     }
 
     if (!buffer.empty()) {
