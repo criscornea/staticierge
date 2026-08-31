@@ -72,6 +72,7 @@ void parse_paragraph(std::size_t &pos, const std::vector<Token> &tokens,
                      const std::size_t max_size)
 {
     std::string buffer = tokens[pos].value;
+    pos++;
 
     auto paragraph_end = [&pos, &tokens, &max_size]() {
         // end reached
@@ -96,8 +97,8 @@ void parse_paragraph(std::size_t &pos, const std::vector<Token> &tokens,
         return false;
     };
 
-    while (paragraph_end()) {
-        buffer += tokens[pos + 1].value; // TEXT or NEWLINE
+    while (!paragraph_end()) {
+        buffer += tokens[pos].value; // TEXT or NEWLINE
         pos++;
     }
 

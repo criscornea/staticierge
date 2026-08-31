@@ -4,6 +4,8 @@ add_executable(staticierge_tests
     core/settings.cpp
     core/reader.cpp
     core/renderer.cpp
+    md/lexer.cpp
+    md/parser.cpp
 )
 
 # update list because of FetchContent
@@ -19,6 +21,7 @@ target_compile_definitions(staticierge_tests PRIVATE
 target_include_directories(staticierge_tests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(staticierge_tests PRIVATE 
     staticierge_core
+    staticierge_md
     Catch2::Catch2WithMain
     tomlplusplus::tomlplusplus
 )
