@@ -12,6 +12,7 @@ target_compile_definitions(staticierge_core PRIVATE
 
 target_include_directories(staticierge_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(staticierge_core PRIVATE 
+    staticierge_md
     project_warnings
     tomlplusplus::tomlplusplus
 )

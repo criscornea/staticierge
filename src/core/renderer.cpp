@@ -1,9 +1,11 @@
 #include "renderer.hpp"
+#include "html.hpp"
+#include "lexer.hpp"
+#include "parser.hpp"
 #include "reader.hpp"
 #include "settings.hpp"
 
 #include <filesystem>
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -22,8 +24,11 @@ fs::path create_dirs(const SourceFile &page, SourceType source_type)
 
 std::string build_content(const SourceFile &page, SourceType type)
 {
+    auto tokens = md::lexer::tokenize(page.content);
+    auto nodes = md::parser::parse(tokens);
+
     return "<html><head><title>" + page.title + "</title></head><body>" +
-           page.content + "</body></html>";
+           md::html::render(nodes) + "</body></html>";
 }
 } // namespace
 
