@@ -23,6 +23,7 @@ TEST_CASE("test html build")
 
     // html output test
     const std::string expected_html =
-        R"(<html><head><title>Test File</title></head><body>Test Content</body></html>)";
+        "<html>\n<head>\n<title>Test File</title>\n</head>\n<body>\n<p>Test "
+        "Content</p>\n</body>\n</html>";
     REQUIRE(result_html == expected_html);
 }

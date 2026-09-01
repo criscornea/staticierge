@@ -11,6 +11,8 @@ dev:
 
 build:
 	cmake --build build
+	ln -sf $(CURDIR)/build/staticierge ~/.local/bin
+
 
 run:
 	cd build && ./staticierge

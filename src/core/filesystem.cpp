@@ -74,7 +74,7 @@ std::vector<fs::path> filesystem::find_markdown_files(const fs::path &root)
 bool filesystem::save_file(const fs::path &filepath,
                            const std::string_view content)
 {
-    std::ofstream file(filepath.string());
+    std::ofstream file(filepath);
 
     if (!file) {
         return false;

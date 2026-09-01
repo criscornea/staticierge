@@ -102,6 +102,10 @@ void parse_paragraph(std::size_t &pos, const std::vector<Token> &tokens,
         pos++;
     }
 
+    while (!buffer.empty() && buffer.back() == '\n') {
+        buffer.pop_back();
+    }
+
     result.push_back(md::parser::Node{md::parser::Paragraph{.text = buffer}});
 }
 } // namespace

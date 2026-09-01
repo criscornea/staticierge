@@ -14,10 +14,10 @@ namespace fs = std::filesystem;
 namespace {
 fs::path create_dirs(const SourceFile &page, SourceType source_type)
 {
-    auto source_path = page.source_path;
-    auto target_path = "output" / source_path;
+    auto target_path = fs::path("output") / page.source_path;
+    target_path.replace_extension(".html");
 
-    fs::create_directories(target_path);
+    fs::create_directories(target_path.parent_path());
 
     return target_path;
 }
@@ -27,8 +27,9 @@ std::string build_content(const SourceFile &page, SourceType type)
     auto tokens = md::lexer::tokenize(page.content);
     auto nodes = md::parser::parse(tokens);
 
-    return "<html><head><title>" + page.title + "</title></head><body>" +
-           md::html::render(nodes) + "</body></html>";
+    return "<html>\n<head>\n<title>" + page.title +
+           "</title>\n</head>\n<body>\n" + md::html::render(nodes) +
+           "</body>\n</html>";
 }
 } // namespace
 

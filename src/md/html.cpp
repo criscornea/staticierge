@@ -34,11 +34,11 @@ std::string html::render(const std::vector<parser::Node> &nodes)
     for (const auto &node : nodes) {
         // TODO: std::visit and static_assert to not miss new node types
         if (std::holds_alternative<md::parser::Heading>(node)) {
-            output += render_header(node);
+            output += render_header(node) + "\n";
         } else if (std::holds_alternative<md::parser::List>(node)) {
-            output += render_list(node);
+            output += render_list(node) + "\n";
         } else if (std::holds_alternative<md::parser::Paragraph>(node)) {
-            output += render_paragraph(node);
+            output += render_paragraph(node) + "\n";
         }
     }
 
