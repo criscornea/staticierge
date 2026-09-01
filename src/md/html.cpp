@@ -12,9 +12,9 @@ std::string render_header(const md::parser::Node &node)
 std::string render_list(const md::parser::Node &node)
 {
     const auto &l = std::get<md::parser::List>(node);
-    std::string output = "<ul>";
+    std::string output = "<ul>\n";
     for (const auto &i : l.items) {
-        output += "<li>" + i + "</li>";
+        output += "<li>" + i + "</li>\n";
     }
     output += "</ul>";
     return output;
