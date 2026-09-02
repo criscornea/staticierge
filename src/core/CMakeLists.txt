@@ -4,6 +4,7 @@ add_library(staticierge_core
     settings.cpp
     renderer.cpp
     reader.cpp
+    template.cpp
 )
 
 target_compile_definitions(staticierge_core PRIVATE
