@@ -7,7 +7,7 @@
 
 #include <toml++/toml.hpp>
 
-enum class SourceType : std::uint8_t { BLOG, WIKI, PAGE, ASSET };
+enum class SourceType : std::uint8_t { BLOG, WIKI, PAGE, ASSET, TEMPLATE };
 
 struct Source
 {

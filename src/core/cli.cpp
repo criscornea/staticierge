@@ -32,6 +32,18 @@ void build(fs::path current_dir)
     auto sources = settings::find_sources(config);
 
     fs::path asset_folder;
+    std::string tmpl;
+    for (const auto &source : sources) {
+        if (source.type != SourceType::TEMPLATE) {
+            continue;
+        }
+
+        auto tmpl_read =
+            filesystem::read_file(fs::path(source.folder) / "base.html");
+        if (tmpl_read) {
+            tmpl = tmpl_read.value();
+        }
+    }
 
     std::cout << "Loading markdown files" << "\n";
     for (const auto &source : sources) {
@@ -43,6 +55,9 @@ void build(fs::path current_dir)
 
         if (source.type == SourceType::ASSET) {
             asset_folder = source.folder;
+            continue;
+        }
+        if (source.type == SourceType::TEMPLATE) {
             continue;
         }
 
@@ -59,7 +74,8 @@ void build(fs::path current_dir)
             source_files.push_back(sf.value());
         }
 
-        auto output_files = content::renderer::html(source_files, source.type);
+        auto output_files =
+            content::renderer::html(source_files, source.type, tmpl);
         for (const auto &html : output_files) {
             auto ok = filesystem::save_file(html.path, html.content);
             if (!ok) {

@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <string>
+#include <string_view>
 #include <vector>
 
 struct SourceFile;
@@ -16,5 +17,5 @@ struct OutputFile
 namespace content::renderer {
 
 std::vector<OutputFile> html(const std::vector<SourceFile> &pages,
-                             SourceType source_type);
+                             SourceType source_type, std::string_view tmpl);
 } // namespace content::renderer

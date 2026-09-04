@@ -29,7 +29,7 @@ std::string content::tmpl::render(
             result += it->second;
         }
 
-        pos = close_pos + 3;
+        pos = close_pos + 2;
     }
 
     return result;

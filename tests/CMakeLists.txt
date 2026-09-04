@@ -7,6 +7,7 @@ add_executable(staticierge_tests
     md/lexer.cpp
     md/parser.cpp
     md/html.cpp
+    md/template.cpp
 )
 
 # update list because of FetchContent

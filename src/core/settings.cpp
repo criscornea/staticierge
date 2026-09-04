@@ -10,10 +10,9 @@
 
 namespace settings {
 std::unordered_map<std::string_view, SourceType> source_types = {
-    {"blog", SourceType::BLOG},
-    {"wiki", SourceType::WIKI},
-    {"page", SourceType::PAGE},
-    {"asset", SourceType::ASSET},
+    {"blog", SourceType::BLOG},         {"wiki", SourceType::WIKI},
+    {"page", SourceType::PAGE},         {"asset", SourceType::ASSET},
+    {"template", SourceType::TEMPLATE},
 };
 }
 
